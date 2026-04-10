@@ -1,3 +1,4 @@
+// updated
 pipeline {
     agent any
 
@@ -5,12 +6,6 @@ pipeline {
         stage('Clone') {
             steps {
                 git branch: 'main', url: 'https://github.com/Nirupa14/devops-pipeline-project.git'
-            }
-        }
-
-        stage('Install Dependencies') {
-            steps {
-                sh 'cd app && npm install'
             }
         }
 
