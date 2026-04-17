@@ -1,0 +1,22 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: GitRepository
+metadata:
+  name: app-repo
+  namespace: default
+spec:
+  interval: 1m
+  url: https://github.com/Nirupa14/devops-pipeline-project.git
+  branch: main
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: app-deploy
+  namespace: default
+spec:
+  interval: 1m
+  path: ./kubernetes
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: app-repo
