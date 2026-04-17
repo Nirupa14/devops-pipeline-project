@@ -1,7 +1,7 @@
 # Stage 1 - Build
 FROM node:18 AS build
 WORKDIR /app
-COPY . .
+COPY app/ ./
 RUN npm install
 
 # Stage 2 - Lightweight image
