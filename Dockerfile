@@ -1,25 +1,11 @@
-# Stage 1: Build stage
-FROM node:18 AS builder
-
+# Stage 1 - Build
+FROM node:18 AS build
 WORKDIR /app
-
-# Copy package files first (for caching)
-COPY app/package*.json ./
-
-# Install dependencies
+COPY . .
 RUN npm install
 
-# Copy remaining app files
-COPY app/ .
-
-# Stage 2: Production stage
+# Stage 2 - Lightweight image
 FROM node:18-alpine
-
 WORKDIR /app
-
-# Copy from builder
-COPY --from=builder /app /app
-
-EXPOSE 3000
-
-CMD ["npm", "start"]
+COPY --from=build /app .
+CMD ["node", "app.js"]
