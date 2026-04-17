@@ -45,5 +45,11 @@ pipeline {
                 }
             }
         }
+
+        stage('Docker Build') {
+            steps {
+                sh 'docker build -t nirupa14/devops-app:latest .'
+            }
+        }
     }
 }
