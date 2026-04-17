@@ -1,23 +1,33 @@
-// updated
 pipeline {
     agent any
 
+    triggers {
+        pollSCM('* * * * *')
+    }
+
     stages {
+
         stage('Clone') {
             steps {
                 git branch: 'main', url: 'https://github.com/Nirupa14/devops-pipeline-project.git'
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Build') {
             steps {
-                sh 'docker build -t nirupa14/devops-app:latest .'
+                sh 'echo "Building project..."'
             }
         }
 
-        stage('Push to DockerHub') {
+        stage('Test') {
             steps {
-                sh 'docker push nirupa14/devops-app:latest'
+                sh 'echo "Running tests..."'
+            }
+        }
+
+        stage('Quality Check') {
+            steps {
+                sh 'echo "Checking quality..."'
             }
         }
     }
