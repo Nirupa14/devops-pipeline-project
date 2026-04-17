@@ -30,5 +30,20 @@ pipeline {
                 sh 'echo "Checking quality..."'
             }
         }
+
+        stage('Quality Gate') {
+            steps {
+                script {
+                    def bugs = 0
+                    def vulnerabilities = 0
+
+                    if (bugs > 0 || vulnerabilities > 0) {
+                        error("Build Failed due to Quality Gate")
+                    } else {
+                        echo "Quality Gate Passed"
+                    }
+                }
+            }
+        }
     }
 }
