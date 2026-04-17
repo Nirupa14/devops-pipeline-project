@@ -51,5 +51,16 @@ pipeline {
                 sh 'docker build -t nirupa14/devops-app:latest .'
             }
         }
+
+        stage('Docker Push') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                    sh '''
+                    echo $PASS | docker login -u $USER --password-stdin
+                    docker push nirupa14/devops-app:latest
+                    '''
+                }
+            }
+        }
     }
 }
